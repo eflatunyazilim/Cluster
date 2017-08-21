@@ -52,25 +52,32 @@ open class ClusterAnnotationView: MKAnnotationView {
      
      - Returns: The initialized cluster annotation view.
      */
-    public init(annotation: MKAnnotation?, reuseIdentifier: String?, type: ClusterAnnotationType) {
+    public init(annotation: MKAnnotation?, reuseIdentifier: String?, type: ClusterAnnotationType, isTextEnabled:Bool) {
         self.type = type
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        configure(with: type)
+        configure(with: type, isTextEnabled:isTextEnabled)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(with type: ClusterAnnotationType) {
+    open func configure(with type: ClusterAnnotationType, isTextEnabled:Bool) {
         guard let annotation = annotation as? ClusterAnnotation else { return }
+        let count = annotation.annotations.count
+        
+        if(isTextEnabled){
+            countLabel.text = "\(count)"
+        }
+        else{
+            countLabel.text = ""
+        }
         
         switch type {
         case let .image(image):
             backgroundColor = .clear
             self.image = image
         case let .color(color, radius):
-            let count = annotation.annotations.count
             backgroundColor	= color
             var diameter = radius * 2
             switch count {
@@ -81,7 +88,6 @@ open class ClusterAnnotationView: MKAnnotationView {
             default: break
             }
             frame = CGRect(origin: frame.origin, size: CGSize(width: diameter, height: diameter))
-            countLabel.text = "\(count)"
         }
     }
     

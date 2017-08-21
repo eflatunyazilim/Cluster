@@ -29,9 +29,9 @@ class ViewController: UIViewController {
             let annotation = Annotation()
             annotation.coordinate = CLLocationCoordinate2D(latitude: drand48() * 80 - 40, longitude: drand48() * 80 - 40)
             let color = UIColor(red: 255/255, green: 149/255, blue: 0/255, alpha: 1)
-            annotation.type = .color(color, radius: 25)
+            //annotation.type = .color(color, radius: 25)
             // or
-            // annotation.type = .image(UIImage(named: "pin")?.filled(with: color)) // custom image
+             annotation.type = .image(UIImage(named: "pin")?.filled(with: color)) // custom image
             return annotation
         }
         manager.add(annotations)
@@ -50,9 +50,9 @@ extension ViewController: MKMapViewDelegate {
             var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             if let view = view as? BorderedClusterAnnotationView {
                 view.annotation = annotation
-                view.configure(with: type)
+                view.configure(with: type, isTextEnabled: false)
             } else {
-                view = BorderedClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier, type: type, borderColor: .white)
+                view = BorderedClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier, type: type, borderColor: .white, isTextEnabled:true)
             }
             return view
         } else {
@@ -105,25 +105,25 @@ extension ViewController: MKMapViewDelegate {
 }
 
 class BorderedClusterAnnotationView: ClusterAnnotationView {
-    let borderColor: UIColor
+    let mBorderColor: UIColor
     
-    init(annotation: MKAnnotation?, reuseIdentifier: String?, type: ClusterAnnotationType, borderColor: UIColor) {
-        self.borderColor = borderColor
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier, type: type)
+    init(annotation: MKAnnotation?, reuseIdentifier: String?, type: ClusterAnnotationType, borderColor: UIColor, isTextEnabled:Bool) {
+        self.mBorderColor = borderColor
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier, type: type, isTextEnabled:isTextEnabled)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func configure(with type: ClusterAnnotationType) {
-        super.configure(with: type)
+    override func configure(with type: ClusterAnnotationType, isTextEnabled:Bool) {
+        super.configure(with: type, isTextEnabled:isTextEnabled)
         
         switch type {
         case .image:
             layer.borderWidth = 0
         case .color:
-            layer.borderColor = borderColor.cgColor
+            layer.borderColor = mBorderColor.cgColor
             layer.borderWidth = 2
         }
     }
