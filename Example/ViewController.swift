@@ -50,9 +50,9 @@ extension ViewController: MKMapViewDelegate {
             var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
             if let view = view as? BorderedClusterAnnotationView {
                 view.annotation = annotation
-                view.configure(with: type, isTextEnabled: false)
+                view.configure(with: type, isTextEnabled: false, textColor:UIColor.clear)
             } else {
-                view = BorderedClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier, type: type, borderColor: .white, isTextEnabled:true)
+                view = BorderedClusterAnnotationView(annotation: annotation, reuseIdentifier: identifier, type: type, borderColor: .white, isTextEnabled:true, textColor:UIColor.red)
             }
             return view
         } else {
@@ -107,17 +107,17 @@ extension ViewController: MKMapViewDelegate {
 class BorderedClusterAnnotationView: ClusterAnnotationView {
     let mBorderColor: UIColor
     
-    init(annotation: MKAnnotation?, reuseIdentifier: String?, type: ClusterAnnotationType, borderColor: UIColor, isTextEnabled:Bool) {
+    init(annotation: MKAnnotation?, reuseIdentifier: String?, type: ClusterAnnotationType, borderColor: UIColor, isTextEnabled:Bool, textColor:UIColor) {
         self.mBorderColor = borderColor
-        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier, type: type, isTextEnabled:isTextEnabled)
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier, type: type, isTextEnabled:isTextEnabled, textColor:textColor)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func configure(with type: ClusterAnnotationType, isTextEnabled:Bool) {
-        super.configure(with: type, isTextEnabled:isTextEnabled)
+    override func configure(with type: ClusterAnnotationType, isTextEnabled:Bool, textColor:UIColor) {
+        super.configure(with: type, isTextEnabled:isTextEnabled, textColor: textColor)
         
         switch type {
         case .image:

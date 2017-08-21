@@ -52,22 +52,23 @@ open class ClusterAnnotationView: MKAnnotationView {
      
      - Returns: The initialized cluster annotation view.
      */
-    public init(annotation: MKAnnotation?, reuseIdentifier: String?, type: ClusterAnnotationType, isTextEnabled:Bool) {
+    public init(annotation: MKAnnotation?, reuseIdentifier: String?, type: ClusterAnnotationType, isTextEnabled:Bool, textColor:UIColor) {
         self.type = type
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        configure(with: type, isTextEnabled:isTextEnabled)
+        configure(with: type, isTextEnabled:isTextEnabled, textColor:textColor)
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open func configure(with type: ClusterAnnotationType, isTextEnabled:Bool) {
+    open func configure(with type: ClusterAnnotationType, isTextEnabled:Bool, textColor:UIColor) {
         guard let annotation = annotation as? ClusterAnnotation else { return }
         let count = annotation.annotations.count
         
         if(isTextEnabled){
             countLabel.text = "\(count)"
+            countLabel.textColor = textColor
         }
         else{
             countLabel.text = ""
