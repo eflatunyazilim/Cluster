@@ -8,12 +8,12 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Cluster'
-  s.version          = '1.0.9'
+  s.version          = '1.1'
   s.summary          = 'Map Clustering Library'
-  s.homepage         = 'https://github.com/efremidze/Cluster'
+  s.homepage         = 'https://github.com/eflatunyazilim/Cluster'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'efremidze' => 'efremidzel@hotmail.com' }
-  s.source           = { :git => 'https://github.com/efremidze/Cluster.git', :tag => s.version.to_s }
+  s.author           = { 'eflatunyazilim' => 'savas@eflatunyazilim.com' }
+  s.source           = { :git => 'https://github.com/eflatunyazilim/Cluster.git', :tag => s.version.to_s }
   s.ios.deployment_target = '8.0'
   s.source_files = 'Sources/*.swift'
 end
