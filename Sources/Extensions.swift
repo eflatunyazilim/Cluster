@@ -51,13 +51,13 @@ extension ZoomScale {
     func cellSize() -> Double {
         switch self {
         case 13...15:
-            return 64
+            return 80
         case 16...18:
-            return 32
+            return 40
         case 19 ..< .greatestFiniteMagnitude:
-            return 16
+            return 20
         default: // Less than 13
-            return 88
+            return 110
         }
     }
 }
