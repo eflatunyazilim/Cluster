@@ -1,4 +1,6 @@
 # Change log
+## [Version 1.1.3](https://github.com/eflatun/Cluster/releases/tag/1.1.3)
+Released on 2017-09-19
 
 ## [Version 1.1.2](https://github.com/eflatun/Cluster/releases/tag/1.1.2)
 Released on 2017-08-21
